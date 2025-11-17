@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkg8csm7n4yrm"]
+[gd_scene load_steps=6 format=3 uid="uid://dkg8csm7n4yrm"]
 
 [ext_resource type="Texture2D" uid="uid://bm77tfhvbe3qv" path="res://Tiles/tilePlaceholder.png" id="1_b7tnw"]
 [ext_resource type="Script" uid="uid://cqemoc5megjuf" path="res://Scripts/world_gen.gd" id="2_5b7mq"]
@@ -14,9 +14,9 @@ texture = ExtResource("1_b7tnw")
 [sub_resource type="TileSet" id="TileSet_p1bgi"]
 sources/0 = SubResource("TileSetAtlasSource_6kjas")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b7tnw"]
+
 [node name="worldGen" type="TileMapLayer"]
 tile_set = SubResource("TileSet_p1bgi")
 script = ExtResource("2_5b7mq")
-map_width = 40
-map_heigth = 30
-map_res_mult = 10.0
+map_height_map = SubResource("FastNoiseLite_b7tnw")
