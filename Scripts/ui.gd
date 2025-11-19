@@ -8,8 +8,12 @@ func _on_button_button_down():
 
 func _input(event):
 	if event.is_action_pressed("pressingEsc"):
-		get_tree().paused = true
-		$pauseMenu.show()
+		if get_tree().paused == false:
+			get_tree().paused = true
+			$pauseMenu.show()
+		else:
+			get_tree().paused = false
+			$pauseMenu.hide()
 
 func _on_unpause_button_button_down():
 	$pauseMenu.hide()
