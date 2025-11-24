@@ -46,31 +46,31 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -60.0
+offset_top = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HUD/BottomButtons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/BottomButtons"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -60.0
+offset_top = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="intStatButton" type="Button" parent="HUD/BottomButtons/HBoxContainer2"]
+[node name="intStatButton" type="Button" parent="HUD/BottomButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "International Status"
 
-[node name="teamsButton" type="Button" parent="HUD/BottomButtons/HBoxContainer2"]
+[node name="teamsButton" type="Button" parent="HUD/BottomButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Teams"
 
-[node name="researchButton" type="Button" parent="HUD/BottomButtons/HBoxContainer2"]
+[node name="researchButton" type="Button" parent="HUD/BottomButtons/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Research"
@@ -89,60 +89,71 @@ size_flags_vertical = 8
 theme_override_font_sizes/font_size = 20
 text = "Gen Map"
 
-[node name="TeamsPanel" type="Panel" parent="HUD"]
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 480.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/TeamsPanel"]
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 480.0
+[node name="LateralButtons" type="HBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/TeamsPanel/HBoxContainer"]
+[node name="TeamsPanel" type="Panel" parent="HUD/LateralButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/LateralButtons/TeamsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/LateralButtons/TeamsPanel/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Button2" type="Button" parent="HUD/TeamsPanel/HBoxContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="HUD/LateralButtons/TeamsPanel/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_ahcct")
 text = "GRE"
 
-[node name="Button4" type="Button" parent="HUD/TeamsPanel/HBoxContainer/VBoxContainer"]
+[node name="Button4" type="Button" parent="HUD/LateralButtons/TeamsPanel/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_ahcct")
 text = "FF"
 
-[node name="PausePanel" type="Panel" parent="HUD"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -100.0
-offset_bottom = 480.0
-grow_horizontal = 0
+[node name="PausePanel" type="Panel" parent="HUD/LateralButtons"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PausePanel"]
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 480.0
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/LateralButtons/PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/PausePanel/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/LateralButtons/PausePanel/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 100
 
-[node name="MarginContainer" type="MarginContainer" parent="HUD/PausePanel/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_top = 50
 
-[node name="pauseButton" type="Button" parent="HUD/PausePanel/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="pauseButton" type="Button" parent="HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -202,6 +213,6 @@ size_flags_vertical = 3
 text = "Main Menu"
 
 [connection signal="button_down" from="HUD/genMapButton" to="." method="_on_button_button_down"]
-[connection signal="pressed" from="HUD/PausePanel/HBoxContainer/VBoxContainer/MarginContainer/pauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/MarginContainer/pauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="Pause Menu/Main Menu/resumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Pause Menu/Main Menu/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
