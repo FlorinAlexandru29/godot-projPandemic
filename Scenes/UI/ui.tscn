@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://buxtindywluys"]
+[gd_scene load_steps=12 format=3 uid="uid://buxtindywluys"]
 
 [ext_resource type="Script" uid="uid://bcnbyxq1lmbki" path="res://Scripts/ui.gd" id="1_ahcct"]
 [ext_resource type="Script" uid="uid://dveke0h57lc0u" path="res://Scripts/timer.gd" id="2_c7mb3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://xd4x5hidh1gn" path="res://Scenes/UI/research_panel.gd" id="4_alcrr"]
 [ext_resource type="Texture2D" uid="uid://7snd7x23xt3v" path="res://back_button_icon.png" id="5_1c2ca"]
 [ext_resource type="PackedScene" uid="uid://ynrmosy74ech" path="res://Scenes/UI/skill_button.tscn" id="6_duuxe"]
+[ext_resource type="PackedScene" uid="uid://hkwj00hccrqp" path="res://Scripts/UI/research/tier.tscn" id="6_jfwrg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahcct"]
 content_margin_left = 4.0
@@ -329,31 +330,19 @@ grow_vertical = 2
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="Tier1" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="SkillButton" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier1" instance=ExtResource("6_duuxe")]
+[node name="Tier" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer" instance=ExtResource("6_jfwrg")]
 layout_mode = 2
 
-[node name="Tier2" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer"]
+[node name="SkillButton" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier" instance=ExtResource("6_duuxe")]
 layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
+
+[node name="Tier2" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer" instance=ExtResource("6_jfwrg")]
+layout_mode = 2
 
 [node name="SkillButton" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier2" instance=ExtResource("6_duuxe")]
 layout_mode = 2
 
-[node name="Tier3" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-alignment = 1
-
-[node name="SkillButton" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier3" instance=ExtResource("6_duuxe")]
-layout_mode = 2
-
-[node name="SkillButton2" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier3" instance=ExtResource("6_duuxe")]
+[node name="SkillButton2" parent="Research/VBoxContainer/HBoxContainer/ResearchPanel/VBoxContainer/Tier2" instance=ExtResource("6_duuxe")]
 layout_mode = 2
 
 [node name="BackButtonPanel" type="HBoxContainer" parent="Research/VBoxContainer/HBoxContainer"]
