@@ -29,7 +29,7 @@ var mountainArray = []
 var plainArray = []
 
 func generate_map() -> void:
-	var tile_map_tile_count : int = tile_set.get_source(0).get_tiles_count()-1
+	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
 	
 	clean_terrain_map()
 	$"../forestLayer".clear()
@@ -37,6 +37,11 @@ func generate_map() -> void:
 	$"../forest3Layer".clear()
 	$"../peaksLayer".clear()
 	$"../cityLayer".clear()
+	$"../water".clear()
+	$"../quake".clear()
+	$"../tsunami".clear()
+	$"../fire".clear()
+	$"../tornado".clear()
 	set_up_map_height_map()
 	mapArray.clear()
 	peakArray.clear()
@@ -90,7 +95,7 @@ func generate_map() -> void:
 			var y = peak[1]
 			while numberOfTiles!=0:
 							if (!get_is_peak(Vector2i(x,y))):
-								$"../peaksLayer".set_cell (Vector2i(x,y), 0, Vector2i(0,0), 0)
+								$"../peaksLayer".set_cell (Vector2i(x,y), 2, Vector2i(0,0), 0)
 								numberOfTiles-=1
 							else:
 								var randomArray = [0,1,2,3,4,5]
@@ -104,37 +109,37 @@ func generate_map() -> void:
 												if get_is_mountain(Vector2i(x,y+1)):
 													if (!get_is_peak(Vector2i(x,y+1))):
 														if (!get_is_city(Vector2i(x,y+1))):
-															$"../peaksLayer".set_cell (Vector2i(x,y+1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x,y+1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											1: 
 												if get_is_mountain(Vector2i(x,y-1)): 
 													if (!get_is_peak(Vector2i(x,y-1))):
 														if (!get_is_city(Vector2i(x,y-1))):
-															$"../peaksLayer".set_cell (Vector2i(x,y-1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x,y-1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											2:
 												if get_is_mountain(Vector2i(x+1,y+1)):
 													if (!get_is_peak(Vector2i(x+1,y+1))):
 														if (!get_is_city(Vector2i(x+1,y+1))):
-															$"../peaksLayer".set_cell (Vector2i(x+1,y+1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x+1,y+1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											3: 
 												if get_is_mountain(Vector2i(x-1, y+1)): 
 													if (!get_is_peak(Vector2i(x-1,y+1))):
 														if (!get_is_city(Vector2i(x-1,y+1))):
-															$"../peaksLayer".set_cell (Vector2i(x-1,y+1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x-1,y+1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											4: 
 												if get_is_mountain(Vector2i(x+1, y-1)):
 													if (!get_is_peak(Vector2i(x+1,y-1))):
 														if (!get_is_city(Vector2i(x+1,y-1))):
-															$"../peaksLayer".set_cell (Vector2i(x+1,y-1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x+1,y-1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 											5: 
 												if get_is_mountain(Vector2i(x-1, y-1)):
 													if (!get_is_peak(Vector2i(x-1,y-1))): 
 														if (!get_is_city(Vector2i(x-1,y-1))):
-															$"../peaksLayer".set_cell (Vector2i(x-1,y-1), 0, Vector2i(0,0), 2)
+															$"../peaksLayer".set_cell (Vector2i(x-1,y-1), randi()%2, Vector2i(0,0), 0)
 															numberOfTiles-=1
 										if randomDirection == randomArray[5]:
 											numberOfTiles=0
@@ -208,6 +213,11 @@ func highlight_hex(cellPos: Vector2i):
 	
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
+	#set_on_fire(cellPos)
+	#set_on_water(cellPos)
+	#set_on_tornado(cellPos)
+	#set_on_quake(cellPos)
+	set_on_tsunami(cellPos)
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -263,3 +273,36 @@ func get_is_city(tile_pos) -> bool:
 		if is_city == 1:
 			return true
 	return false
+
+func set_on_fire(tile_pos) -> void:
+	$"../fire".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 1)
+	print("fire added")
+
+func set_on_water(tile_pos) -> void:
+	$"../water".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 0)
+	print("water added")
+
+func set_on_tornado(tile_pos) -> void:
+	$"../tornado".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+	print("tornado added")
+
+func set_on_quake(tile_pos) -> void:
+	$"../quake".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+	print("quake added")
+
+func set_on_tsunami(tile_pos) -> void:
+	$"../tsunami".set_cell(Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(0,1), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(0,-1), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(1,0), 0, Vector2i.ZERO, 0)
+	$"../tsunami".set_cell(tile_pos+Vector2i(-1,0), 0, Vector2i.ZERO, 0)
+	if (tile_pos[0]%2==0):
+		$"../tsunami".set_cell(tile_pos+Vector2i(1,-1), 0, Vector2i.ZERO, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(-1,-1), 0, Vector2i.ZERO, 0)
+	else:
+		$"../tsunami".set_cell(tile_pos+Vector2i(1,1), 0, Vector2i.ZERO, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
+
+func tsunami_wave(tile_pos) -> void:
+	#set_on_tsunami(tile_pos)
+	pass

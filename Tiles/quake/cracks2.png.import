@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfvol6sqn26j2"
-path="res://.godot/imported/hex_grid.png-f4fd1914332a26dfe903368651baa6b2.ctex"
+uid="uid://dn7xna1tuqdc7"
+path="res://.godot/imported/cracks2.png-c376a68864d7d3d5c41b994dbc32fd31.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiles/hex_grid.png"
-dest_files=["res://.godot/imported/hex_grid.png-f4fd1914332a26dfe903368651baa6b2.ctex"]
+source_file="res://Tiles/quake/cracks2.png"
+dest_files=["res://.godot/imported/cracks2.png-c376a68864d7d3d5c41b994dbc32fd31.ctex"]
 
 [params]
 

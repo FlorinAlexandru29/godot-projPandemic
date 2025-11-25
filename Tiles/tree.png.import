@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfvol6sqn26j2"
-path="res://.godot/imported/hex_grid.png-f4fd1914332a26dfe903368651baa6b2.ctex"
+uid="uid://du0r8fqa2un7x"
+path="res://.godot/imported/tree.png-8269745ec965fadee078eee47c19e573.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tiles/hex_grid.png"
-dest_files=["res://.godot/imported/hex_grid.png-f4fd1914332a26dfe903368651baa6b2.ctex"]
+source_file="res://Tiles/tree.png"
+dest_files=["res://.godot/imported/tree.png-8269745ec965fadee078eee47c19e573.ctex"]
 
 [params]
 
