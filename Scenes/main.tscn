@@ -113,7 +113,7 @@ margins = Vector2i(1, 9)
 texture_region_size = Vector2i(110, 96)
 0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/modulate = Color(1, 1, 1, 0.15686275)
+0:0/0/modulate = Color(1, 1, 1, 0.11764706)
 0:0/1 = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gt3je"]
@@ -122,7 +122,7 @@ margins = Vector2i(1, 9)
 texture_region_size = Vector2i(110, 96)
 0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/modulate = Color(1, 1, 1, 0.15686275)
+0:0/0/modulate = Color(1, 1, 1, 0.11764706)
 0:0/0/custom_data_0 = 1
 0:0/1 = 1
 
@@ -145,7 +145,7 @@ margins = Vector2i(1, 9)
 texture_region_size = Vector2i(110, 96)
 0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/modulate = Color(1, 1, 1, 0.15686275)
+0:0/0/modulate = Color(1, 1, 1, 0.11764706)
 0:0/0/custom_data_0 = 2
 0:0/1 = 1
 
@@ -155,7 +155,7 @@ margins = Vector2i(1, 9)
 texture_region_size = Vector2i(110, 96)
 0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/modulate = Color(1, 1, 1, 0.15686275)
+0:0/0/modulate = Color(1, 1, 1, 0.11764706)
 0:0/0/custom_data_0 = 3
 0:0/1 = 1
 
@@ -165,7 +165,7 @@ margins = Vector2i(1, 9)
 texture_region_size = Vector2i(110, 96)
 0:0/next_alternative_id = 2
 0:0/0 = 0
-0:0/0/modulate = Color(1, 1, 1, 0.15686275)
+0:0/0/modulate = Color(1, 1, 1, 0.11764706)
 0:0/0/custom_data_0 = 4
 0:0/1 = 1
 
