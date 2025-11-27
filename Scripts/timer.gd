@@ -18,6 +18,12 @@ func _on_timeout():
 		$TimeFundsContainer/fundsLabel.text=str("Funds: ", Globals.funds)
 		if Globals.month==12:
 			$TimeFundsContainer/timeLabel.text="Game over"
+			$"../../../../../disastersTimer".stop()
+			$"../../../../../disastersTimer/tsunamiTimer".stop()
+			$"../../../../../disastersTimer/fireTimer".stop()
+			$"../../../../../disastersTimer/fireTimer/fireExtension".stop()
+			$"../../../../../disastersTimer/floodTimer".stop()
+			$"../../../../../disastersTimer/tornadoTimer".stop()
 		else:
 			Globals.day=1
 			$TimeFundsContainer/timeLabel.text=str("Month ", Globals.month, ", Day ",Globals.day)

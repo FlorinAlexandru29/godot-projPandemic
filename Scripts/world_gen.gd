@@ -377,9 +377,9 @@ func select_hex(cellPos: Vector2i):
 	#HERE
 	
 	#print("ClickPos", cellPos)
-	currentRange=2
-	tsunami_wave(cellPos, currentRange, 5)
-	currentRange=2
+	#currentRange=2
+	#tsunami_wave(cellPos, currentRange, 5)
+	#currentRange=2
 
 func get_is_interactable(tile_pos) -> bool:
 	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("tilemap")
@@ -468,95 +468,97 @@ func get_country_number(tile_pos) -> int:
 		return countryNumber
 	return 10	
 
-func get_has_forest(tile_pos) -> bool:
-	var tilemaps = get_tree().get_nodes_in_group("hasForest")
-	for tilemap in tilemaps:
-		var cell = tile_pos
-		var data: TileData = tilemap.get_cell_tile_data(cell)
-		
-		if data:
-			var has_forest: float = data.get_custom_data("hasForest")
-			if has_forest == 1:
-				return true
-	return false
+var randomFire = Vector2i.ZERO
+var addedRandomFire = 0
 
-func set_on_fire(tile_pos) -> void:
-	if tile_pos == Vector2i.ZERO:
-		#forestArray.shuffle()
-		#$"../fire".set_cell (Vector2i(forestArray[0]), 1, Vector2i.ZERO, 1)
-		print("no pos")
-	else:
-		var directions = []
-		if get_has_forest(tile_pos):
-			$"../fire".set_cell (tile_pos, 1, Vector2i.ZERO, 1)
+func set_on_fire(tile_pos, add) -> void:
+	var top_right = Vector2i.ZERO
+	var top_left = Vector2i.ZERO
+	var bot_right = Vector2i.ZERO
+	var bot_left = Vector2i.ZERO
+	if get_has_forest(tile_pos) || get_has_forest2(tile_pos) || get_has_forest3(tile_pos):
+			$"../fire".set_cell (tile_pos, add, Vector2i.ZERO, 1)
 			print("fire added")
-		var top = tile_pos+Vector2i(0,1)
-		if get_has_forest(top):
-			directions.append(top)
-		var bot = tile_pos+Vector2i(0,-1)
-		if get_has_forest(bot):
-			directions.append(bot)
-		var top_right = Vector2i()
-		var top_left = Vector2i()
-		var bot_right = Vector2i()
-		var bot_left = Vector2i()
+			addedRandomFire = 0
+	elif add==-1:
+		if addedRandomFire == 1:
+			tile_pos = randomFire
+		else:
+			tile_pos = forestArray[0]
+		$"../fire".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 1)
+		print("random fire deleted")
+		addedRandomFire = 0
+	else:
+		forestArray.shuffle()
+		$"../fire".set_cell (Vector2i(forestArray[0]), 1, Vector2i.ZERO, 1)
+		tile_pos = forestArray[0]
+		print("random fire added")
+		addedRandomFire = 1
+		randomFire = tile_pos
+	if add==-1:
+		if addedRandomFire == 1:
+			tile_pos = randomFire
 		if tile_pos[0]%2==0:
 			top_right = tile_pos+Vector2i(1,-1)
-			if get_has_forest(top_right):
-				directions.append(top_right)
 			top_left = tile_pos+Vector2i(-1,-1)
-			if get_has_forest(top_left):
-				directions.append(top_left)
 			bot_right = tile_pos+Vector2i(1,0)
-			if get_has_forest(bot_right):
-				directions.append(bot_right)
 			bot_left = tile_pos+Vector2i(-1,0)
-			if get_has_forest(bot_left):
-				directions.append(bot_left)
 		else:
 			top_right = tile_pos+Vector2i(1,0)
-			if get_has_forest(top_right):
-				directions.append(top_right)
 			top_left = tile_pos+Vector2i(-1,0)
-			if get_has_forest(top_left):
-				directions.append(top_left)
 			bot_right = tile_pos+Vector2i(1,1)
-			if get_has_forest(bot_right):
-				directions.append(bot_right)
 			bot_left = tile_pos+Vector2i(-1,1)
-			if get_has_forest(bot_left):
-				directions.append(bot_left)
-		for direction in directions:
-			$"../fire".set_cell (direction, 1, Vector2i.ZERO, 1)
+		$"../fire".set_cell (tile_pos+Vector2i(0,1), add, Vector2i.ZERO, 1)
+		$"../fire".set_cell (tile_pos+Vector2i(0,-1), add, Vector2i.ZERO, 1)
+		$"../fire".set_cell (top_right, add, Vector2i.ZERO, 1)
+		$"../fire".set_cell (top_left, add, Vector2i.ZERO, 1)
+		$"../fire".set_cell (bot_right, add, Vector2i.ZERO, 1)
+		$"../fire".set_cell (bot_left, add, Vector2i.ZERO, 1)
 
 func set_on_water(tile_pos) -> void:
 	$"../water".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 0)
 	print("water added")
 
-func set_on_tornado(tile_pos) -> void:
-	$"../tornado".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+func set_on_tornado(tile_pos, add) -> void:
+	$"../tornado".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
 	print("tornado added")
 
-func set_on_quake(tile_pos) -> void:
-	$"../quake".set_cell (Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
+func set_on_quake(tile_pos, add) -> void:
+	if get_is_plain(tile_pos) || get_is_mountain(tile_pos):
+		$"../quake".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
+	else:
+		plainArray.shuffle()
+		$"../quake".set_cell (Vector2i(plainArray[0]), add, Vector2i.ZERO, 0)
 	print("quake added")
 
-func set_on_tsunami(tile_pos) -> void:
-	$"../tsunami".set_cell(Vector2i(tile_pos), 0, Vector2i.ZERO, 0)
-	$"../tsunami".set_cell(tile_pos+Vector2i(0,1), 0, Vector2i.ZERO, 0)
-	$"../tsunami".set_cell(tile_pos+Vector2i(0,-1), 0, Vector2i.ZERO, 0)
-	$"../tsunami".set_cell(tile_pos+Vector2i(1,0), 0, Vector2i.ZERO, 0)
-	$"../tsunami".set_cell(tile_pos+Vector2i(-1,0), 0, Vector2i.ZERO, 0)
-	if (tile_pos[0]%2==0):
-		$"../tsunami".set_cell(tile_pos+Vector2i(1,-1), 0, Vector2i.ZERO, 0)
-		$"../tsunami".set_cell(tile_pos+Vector2i(-1,-1), 0, Vector2i.ZERO, 0)
-	else:
-		$"../tsunami".set_cell(tile_pos+Vector2i(1,1), 0, Vector2i.ZERO, 0)
-		$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), 0, Vector2i.ZERO, 0)
+var tsunamiTile = Vector2i.ZERO
 
-func tsunami_wave(tile_pos, currentRange, waveRange) -> void:
+func set_on_tsunami(tile_pos,add) -> void:
+	if add == -1 and tsunamiTile != Vector2i.ZERO:
+		pass
+	else:
+		$"../tsunami".set_cell(Vector2i(tile_pos), add, tsunamiTile, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(0,1), add, tsunamiTile, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(0,-1), add, tsunamiTile, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(1,0), add, tsunamiTile, 0)
+		$"../tsunami".set_cell(tile_pos+Vector2i(-1,0), add, tsunamiTile, 0)
+		if (tile_pos[0]%2==0):
+			$"../tsunami".set_cell(tile_pos+Vector2i(1,-1), add, tsunamiTile, 0)
+			$"../tsunami".set_cell(tile_pos+Vector2i(-1,-1), add, tsunamiTile, 0)
+		else:
+			$"../tsunami".set_cell(tile_pos+Vector2i(1,1), add, tsunamiTile, 0)
+			$"../tsunami".set_cell(tile_pos+Vector2i(-1,1), add, tsunamiTile, 0)
+
+func tsunami_wave(tile_pos, currentRange, waveRange,add) -> void:
 	var directions = []
-	set_on_tsunami(tile_pos)
+	if get_is_plain(tile_pos):
+		tsunamiTile = Vector2i(9,0)
+	elif get_is_water(tile_pos):
+		tsunamiTile = Vector2i.ZERO
+	elif get_is_mountain(tile_pos):
+		if (!get_is_peak(tile_pos)):
+			tsunamiTile = Vector2i(9,0)
+	set_on_tsunami(tile_pos,add)
 	var top = tile_pos+Vector2i(0,1)
 	if get_is_water(top):
 		directions.append(top)
@@ -595,11 +597,90 @@ func tsunami_wave(tile_pos, currentRange, waveRange) -> void:
 			directions.append(bot_left)
 	for direction in directions:
 		if (direction[0]>=3 && direction[0]<map_width-3) && (direction[1]>=3 && direction[1]<map_height-3):
-			set_on_tsunami(direction)
+			set_on_tsunami(direction,add)
 	if currentRange < waveRange:
 		currentRange+=1
 		for direction in directions:
-			tsunami_wave(direction, currentRange, waveRange)
+			tsunami_wave(direction, currentRange, waveRange,add)
+
+func get_has_forest(tile_pos) -> bool:
+	var tilemap: TileMapLayer = get_tree().get_first_node_in_group("hasForest")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+		
+	if data:
+		var has_forest: float = data.get_custom_data("hasForest")
+		if has_forest == 1:
+			return true
+	return false
+
+func get_has_forest2(tile_pos) -> bool:
+	var tilemap = get_tree().get_first_node_in_group("hasForest2")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+		
+	if data:
+		var has_forest2: float = data.get_custom_data("hasForest2")
+		if has_forest2 == 1:
+			return true
+	return false
+
+func get_has_forest3(tile_pos) -> bool:
+	var tilemap = get_tree().get_first_node_in_group("hasForest3")
+	var cell = tile_pos
+	var data: TileData = tilemap.get_cell_tile_data(cell)
+		
+	if data:
+		var has_forest3: float = data.get_custom_data("hasForest3")
+		if has_forest3 == 1:
+			return true
+	return false
+
+func fire_wave(tile_pos) -> void:
+	if addedRandomFire==1:
+		tile_pos = randomFire
+	var directions = []
+	var top = tile_pos+Vector2i(0,1)
+	print ("1", get_has_forest(top), "2", get_has_forest2(top), "3", get_has_forest3(top))
+	print("wha", get_has_forest(top) || get_has_forest2(top) || get_has_forest3(top))
+	if get_has_forest(top) || get_has_forest2(top) || get_has_forest3(top):
+		directions.append(top)
+	var bot = tile_pos+Vector2i(0,-1)
+	if get_has_forest(bot) || get_has_forest2(bot) || get_has_forest3(bot):
+		directions.append(bot)
+	var top_right = Vector2i()
+	var top_left = Vector2i()
+	var bot_right = Vector2i()
+	var bot_left = Vector2i()
+	if tile_pos[0]%2==0:
+		top_right = tile_pos+Vector2i(1,-1)
+		if get_has_forest(top_right) || get_has_forest2(top_right) || get_has_forest3(top_right):
+			directions.append(top_right)
+		top_left = tile_pos+Vector2i(-1,-1)
+		if get_has_forest(top_left) || get_has_forest2(top_left) || get_has_forest3(top_left):
+			directions.append(top_left)
+		bot_right = tile_pos+Vector2i(1,0)
+		if get_has_forest(bot_right) || get_has_forest2(bot_right) || get_has_forest3(bot_right):
+			directions.append(bot_right)
+		bot_left = tile_pos+Vector2i(-1,0)
+		if get_has_forest(bot_left) || get_has_forest2(bot_left) || get_has_forest3(bot_left):
+			directions.append(bot_left)
+	else:
+		top_right = tile_pos+Vector2i(1,0)
+		if get_has_forest(top_right) || get_has_forest2(top_right) || get_has_forest3(top_right):
+			directions.append(top_right)
+		top_left = tile_pos+Vector2i(-1,0)
+		if get_has_forest(top_left) || get_has_forest2(top_left) || get_has_forest3(top_left):
+			directions.append(top_left)
+		bot_right = tile_pos+Vector2i(1,1)
+		if get_has_forest(bot_right) || get_has_forest2(bot_right) || get_has_forest3(bot_right):
+			directions.append(bot_right)
+		bot_left = tile_pos+Vector2i(-1,1)
+		if get_has_forest(bot_left) || get_has_forest2(bot_left) || get_has_forest3(bot_left):
+			directions.append(bot_left)
+	print("directions",directions)
+	for direction in directions:
+		$"../fire".set_cell (direction, 1, Vector2i.ZERO, 1)
 
 func set_country_territory(tile_pos, countryNumber) -> void:
 	if get_country_number(tile_pos) == 10:

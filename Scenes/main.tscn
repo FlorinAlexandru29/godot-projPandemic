@@ -1,6 +1,6 @@
-[gd_scene load_steps=59 format=4 uid="uid://jukto30w76kt"]
+[gd_scene load_steps=61 format=4 uid="uid://jukto30w76kt"]
 
-[ext_resource type="PackedScene" uid="uid://c7snuliuemxt6" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://ccivspgvtm5mi" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
 [ext_resource type="Texture2D" uid="uid://dfrocx2h3xln0" path="res://Tiles/2.png" id="3_fdnlq"]
 [ext_resource type="PackedScene" uid="uid://so5e4dsow41p" path="res://Scenes/fire.tscn" id="4_21xkr"]
@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://bp34n6pkwwvcy" path="res://Tiles/tornado/tornado-ezgif.com-gif-to-sprite-converter.png" id="9_hptm8"]
 [ext_resource type="Texture2D" uid="uid://qtp1klo5weqx" path="res://Tiles/1.png" id="10_b3802"]
 [ext_resource type="Script" uid="uid://b4nx0h6pfmfi7" path="res://Scenes/camera_2d.gd" id="12_6iyac"]
+[ext_resource type="Texture2D" uid="uid://bcugen3vvn7u8" path="res://Tiles/tsunami.png" id="12_hibaj"]
+[ext_resource type="Script" uid="uid://cy446pb2n1jq7" path="res://Scenes/disasters_timer.gd" id="19_fevyy"]
 
 [sub_resource type="GDScript" id="GDScript_6iyac"]
 script/source = "extends Node2D
@@ -144,10 +146,9 @@ tile_offset_axis = 1
 tile_size = Vector2i(116, 96)
 sources/0 = SubResource("TileSetAtlasSource_b3802")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fevyy"]
-texture = ExtResource("8_ynf5e")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ueoa1"]
+texture = ExtResource("12_hibaj")
 texture_region_size = Vector2i(110, 96)
-0:0/animation_columns = 9
 0:0/animation_frame_0/duration = 1.0
 0:0/animation_frame_1/duration = 1.0
 0:0/animation_frame_2/duration = 1.0
@@ -158,12 +159,14 @@ texture_region_size = Vector2i(110, 96)
 0:0/animation_frame_7/duration = 1.0
 0:0/animation_frame_8/duration = 1.0
 0:0/0 = 0
+9:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fdnlq"]
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(116, 96)
-sources/0 = SubResource("TileSetAtlasSource_fevyy")
+sources/0 = SubResource("TileSetAtlasSource_ueoa1")
+tile_proxies/coords_level = [[0, Vector2i(0, 0)], [2, Vector2i(0, 0)], [1, Vector2i(0, 0)], [2, Vector2i(9, 0)]]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6bp64"]
 texture = ExtResource("4_kry3j")
@@ -206,7 +209,7 @@ texture_region_size = Vector2i(18, 24)
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(116, 96)
-custom_data_layer_0/name = "hasForest"
+custom_data_layer_0/name = "hasForest2"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_ynf5e")
 sources/2 = SubResource("TileSetAtlasSource_jjvhh")
@@ -228,7 +231,7 @@ texture_region_size = Vector2i(18, 24)
 tile_shape = 3
 tile_offset_axis = 1
 tile_size = Vector2i(116, 96)
-custom_data_layer_0/name = "hasForest"
+custom_data_layer_0/name = "hasForest3"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_hptm8")
 sources/2 = SubResource("TileSetAtlasSource_344ge")
@@ -417,11 +420,11 @@ position = Vector2(-10, 4)
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_6bp64")
 
-[node name="forest2Layer" type="TileMapLayer" parent="map" groups=["hasForest"]]
+[node name="forest2Layer" type="TileMapLayer" parent="map" groups=["hasForest2"]]
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_21xkr")
 
-[node name="forest3Layer" type="TileMapLayer" parent="map" groups=["hasForest"]]
+[node name="forest3Layer" type="TileMapLayer" parent="map" groups=["hasForest3"]]
 position = Vector2(10, 4)
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_ynf5e")
@@ -455,3 +458,29 @@ limit_top = 0
 limit_right = 156
 limit_bottom = 275
 script = ExtResource("12_6iyac")
+
+[node name="disastersTimer" type="Timer" parent="."]
+wait_time = 10.0
+script = ExtResource("19_fevyy")
+
+[node name="tsunamiTimer" type="Timer" parent="disastersTimer"]
+wait_time = 30.0
+
+[node name="fireTimer" type="Timer" parent="disastersTimer"]
+wait_time = 30.0
+
+[node name="fireExtension" type="Timer" parent="disastersTimer/fireTimer"]
+wait_time = 15.0
+
+[node name="floodTimer" type="Timer" parent="disastersTimer"]
+wait_time = 30.0
+
+[node name="tornadoTimer" type="Timer" parent="disastersTimer"]
+wait_time = 30.0
+
+[connection signal="timeout" from="disastersTimer" to="disastersTimer" method="_on_timeout"]
+[connection signal="timeout" from="disastersTimer/tsunamiTimer" to="disastersTimer" method="_on_tsunami_timer_timeout"]
+[connection signal="timeout" from="disastersTimer/fireTimer" to="disastersTimer" method="_on_fire_timer_timeout"]
+[connection signal="timeout" from="disastersTimer/fireTimer/fireExtension" to="disastersTimer" method="_on_fire_extension_timeout"]
+[connection signal="timeout" from="disastersTimer/floodTimer" to="disastersTimer" method="_on_flood_timer_timeout"]
+[connection signal="timeout" from="disastersTimer/tornadoTimer" to="disastersTimer" method="_on_tornado_timer_timeout"]
