@@ -53,6 +53,8 @@ func clear_all_arrays() -> void:
 	riversArray.clear()
 	forestArray.clear()
 
+var mapDone = 0
+
 func generate_map() -> void:
 	var tile_map_tile_count : int = tile_set.get_source(1).get_tiles_count()-1
 	clear_all_layers()
@@ -163,7 +165,7 @@ func generate_map() -> void:
 		#generate_Mountain_city()
 		#generate_Plain_city()
 		#generate_Plain_city()
-	pass
+		mapDone=1
 
 func generate_Mountain_city(cityNumber) -> void:
 	randomize()
@@ -340,6 +342,7 @@ func highlight_hex(cellPos: Vector2i):
 	marker.position = map_to_local(cellPos)
 
 var clicks=-5
+var citiesNotGenerated=1
 
 func select_hex(cellPos: Vector2i):
 	selMarker.position = map_to_local(cellPos)
@@ -356,15 +359,24 @@ func select_hex(cellPos: Vector2i):
 	#tsunami_wave(Vector2i(19,14), 3)
 	
 	#HERE
-	var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
-	var numberOfCountries = 4
-	for cell in countrySpawnCells:
-		currentRange=2
-		country_wave(cell, currentRange, 6, 4-numberOfCountries)
-		numberOfCountries-=1
-	numberOfCountries = 4
-	currentRange=2
 	
+	if mapDone && (citiesNotGenerated==1):
+		var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
+		var numberOfCountries = 4
+		for cell in countrySpawnCells:
+			currentRange=2
+			country_wave(cell, currentRange, 6, 4-numberOfCountries)
+			numberOfCountries-=1
+		numberOfCountries = 4
+		currentRange=2
+		for i in range(0,5):
+			generate_Plain_city(i)
+			generate_Plain_city(i)
+			generate_Plain_city(i)
+			generate_Plain_city(i)
+			generate_Mountain_city(i)
+		citiesNotGenerated=0
+			#generate_River_city(i)
 	#if clicks>=0:
 		#for i in range(0,5):
 			#generate_Plain_city(i)
