@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://jukto30w76kt"]
+[gd_scene load_steps=67 format=4 uid="uid://jukto30w76kt"]
 
 [ext_resource type="PackedScene" uid="uid://ccivspgvtm5mi" path="res://Scenes/world_gen.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://buxtindywluys" path="res://Scenes/UI/ui.tscn" id="2_bo1nx"]
@@ -20,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://qtp1klo5weqx" path="res://Tiles/1.png" id="10_b3802"]
 [ext_resource type="Script" uid="uid://b4nx0h6pfmfi7" path="res://Scenes/camera_2d.gd" id="12_6iyac"]
 [ext_resource type="Texture2D" uid="uid://bcugen3vvn7u8" path="res://Tiles/tsunami.png" id="12_hibaj"]
+[ext_resource type="Texture2D" uid="uid://bmsfho6g62ctj" path="res://Tiles/Buildings/City.png" id="17_ee4r6"]
+[ext_resource type="Texture2D" uid="uid://xo1jb6f2q7uy" path="res://Tiles/Buildings/Village.png" id="18_gt3je"]
 [ext_resource type="Script" uid="uid://cy446pb2n1jq7" path="res://Scenes/disasters_timer.gd" id="19_fevyy"]
 
 [sub_resource type="GDScript" id="GDScript_6iyac"]
@@ -339,6 +341,18 @@ texture_region_size = Vector2i(36, 48)
 0:0/2/modulate = Color(0, 0, 0, 1)
 0:0/2/custom_data_0 = true
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7k868"]
+texture = ExtResource("17_ee4r6")
+margins = Vector2i(17, 2)
+texture_region_size = Vector2i(50, 46)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hpc6h"]
+texture = ExtResource("18_gt3je")
+margins = Vector2i(22, 35)
+texture_region_size = Vector2i(46, 38)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_344ge"]
 tile_shape = 3
 tile_offset_axis = 1
@@ -346,6 +360,8 @@ tile_size = Vector2i(116, 96)
 custom_data_layer_0/name = "isCity"
 custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_6iyac")
+sources/1 = SubResource("TileSetAtlasSource_7k868")
+sources/2 = SubResource("TileSetAtlasSource_hpc6h")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6bp64"]
 scenes/1/scene = ExtResource("4_21xkr")
@@ -453,20 +469,24 @@ scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_fdnlq")
 
 [node name="forestLayer" type="TileMapLayer" parent="map" groups=["hasForest"]]
-position = Vector2(-10, 4)
+z_index = 1
+position = Vector2(-16, 0)
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_6bp64")
 
 [node name="forest2Layer" type="TileMapLayer" parent="map" groups=["hasForest2"]]
+position = Vector2(0, -17)
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_21xkr")
 
 [node name="forest3Layer" type="TileMapLayer" parent="map" groups=["hasForest3"]]
-position = Vector2(10, 4)
+z_index = 1
+position = Vector2(16, 0)
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_ynf5e")
 
 [node name="cityLayer" type="TileMapLayer" parent="map" groups=["tilecity"]]
+position = Vector2(0, 2)
 scale = Vector2(0.5, 0.5)
 tile_set = SubResource("TileSet_344ge")
 

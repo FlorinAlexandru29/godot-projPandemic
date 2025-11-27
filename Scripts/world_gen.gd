@@ -197,7 +197,7 @@ func generate_Mountain_city(cityNumber) -> void:
 		if get_country_number(cityLocation)==cityNumber:
 			if !get_is_peak(cityLocation):
 				if !get_is_city(cityLocation):
-					$"../cityLayer".set_cell (cityLocation, 0, Vector2i(0,0), 1)
+					$"../cityLayer".set_cell (cityLocation, 2, Vector2i(0,0), 0)
 
 func generate_Plain_city(cityNumber) -> void:
 	randomize()
@@ -212,7 +212,10 @@ func generate_Plain_city(cityNumber) -> void:
 	if spawnable == 1:
 		if get_country_number(cityLocation)==cityNumber:
 			if !get_is_city(cityLocation):
-				$"../cityLayer".set_cell (cityLocation, 0, Vector2i(0,0), 1)
+				if (randi()%2==1):
+					$"../cityLayer".set_cell (cityLocation, 1, Vector2i(0,0), 0)
+				else:
+					$"../cityLayer".set_cell (cityLocation, 2, Vector2i(0,0), 0)
 
 func generate_River_city(cityNumber) -> void:
 	randomize()
