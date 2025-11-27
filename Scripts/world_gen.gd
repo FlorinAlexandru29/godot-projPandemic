@@ -356,15 +356,15 @@ func select_hex(cellPos: Vector2i):
 	#tsunami_wave(Vector2i(19,14), 3)
 	
 	#HERE
-	#var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
-	#var numberOfCountries = 4
-	#for cell in countrySpawnCells:
-		#currentRange=2
-		#country_wave(cell, currentRange, 6, 4-numberOfCountries)
-		#numberOfCountries-=1
-	#numberOfCountries = 4
-	#currentRange=2
-	#
+	var countrySpawnCells = [Vector2i(6,5), Vector2i(14,4), Vector2i(22,7), Vector2i(8,13), Vector2i(19,14)]
+	var numberOfCountries = 4
+	for cell in countrySpawnCells:
+		currentRange=2
+		country_wave(cell, currentRange, 6, 4-numberOfCountries)
+		numberOfCountries-=1
+	numberOfCountries = 4
+	currentRange=2
+	
 	#if clicks>=0:
 		#for i in range(0,5):
 			#generate_Plain_city(i)
@@ -538,7 +538,7 @@ func set_on_quake(tile_pos, add) -> void:
 			tile_pos = mountainArray[0]
 		print("PL",plainArray[0],"TP",tile_pos)
 		print("PL2",plainArray[0][0],"PL3",plainArray[0][1],"PL4")
-		$"../quake".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
+		$"../quake".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
 	print("quake added")
 
 var tsunamiTile = Vector2i.ZERO
@@ -692,27 +692,29 @@ func fire_wave(tile_pos) -> void:
 	for direction in directions:
 		$"../fire".set_cell (direction, 1, Vector2i.ZERO, 1)
 
+var alternateC = 0
+
 func set_country_territory(tile_pos, countryNumber) -> void:
 	if get_country_number(tile_pos) == 10:
-		$"../countries".set_cell(Vector2i(tile_pos), countryNumber, Vector2i.ZERO, 0)
+		$"../countries".set_cell(Vector2i(tile_pos), countryNumber, Vector2i.ZERO, alternateC)
 	if get_country_number(tile_pos+Vector2i(0,1)) == 10:
-		$"../countries".set_cell(tile_pos+Vector2i(0,1), countryNumber, Vector2i.ZERO, 0)
+		$"../countries".set_cell(tile_pos+Vector2i(0,1), countryNumber, Vector2i.ZERO, alternateC)
 	if get_country_number(tile_pos+Vector2i(0,-1)) == 10:
-		$"../countries".set_cell(tile_pos+Vector2i(0,-1), countryNumber, Vector2i.ZERO, 0)
+		$"../countries".set_cell(tile_pos+Vector2i(0,-1), countryNumber, Vector2i.ZERO, alternateC)
 	if get_country_number(tile_pos+Vector2i(1,0)) == 10:
-		$"../countries".set_cell(tile_pos+Vector2i(1,0), countryNumber, Vector2i.ZERO, 0)
+		$"../countries".set_cell(tile_pos+Vector2i(1,0), countryNumber, Vector2i.ZERO, alternateC)
 	if get_country_number(tile_pos+Vector2i(-1,0)) == 10:
-		$"../countries".set_cell(tile_pos+Vector2i(-1,0), countryNumber, Vector2i.ZERO, 0)
+		$"../countries".set_cell(tile_pos+Vector2i(-1,0), countryNumber, Vector2i.ZERO, alternateC)
 	if (tile_pos[0]%2==0):
 		if get_country_number(tile_pos+Vector2i(1,-1)) == 10:
-			$"../countries".set_cell(tile_pos+Vector2i(1,-1), countryNumber, Vector2i.ZERO, 0)
+			$"../countries".set_cell(tile_pos+Vector2i(1,-1), countryNumber, Vector2i.ZERO, alternateC)
 		if get_country_number(tile_pos+Vector2i(-1,-1)) == 10:
-			$"../countries".set_cell(tile_pos+Vector2i(-1,-1), countryNumber, Vector2i.ZERO, 0)
+			$"../countries".set_cell(tile_pos+Vector2i(-1,-1), countryNumber, Vector2i.ZERO, alternateC)
 	else:
 		if get_country_number(tile_pos+Vector2i(1,1)) == 10:
-			$"../countries".set_cell(tile_pos+Vector2i(1,1), countryNumber, Vector2i.ZERO, 0)
+			$"../countries".set_cell(tile_pos+Vector2i(1,1), countryNumber, Vector2i.ZERO, alternateC)
 		if get_country_number(tile_pos+Vector2i(-1,1)) == 10:
-			$"../countries".set_cell(tile_pos+Vector2i(-1,1), countryNumber, Vector2i.ZERO, 0)
+			$"../countries".set_cell(tile_pos+Vector2i(-1,1), countryNumber, Vector2i.ZERO, alternateC)
 
 var currentRange = 1
 
