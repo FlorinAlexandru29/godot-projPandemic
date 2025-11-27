@@ -515,8 +515,8 @@ func set_on_fire(tile_pos, add) -> void:
 		$"../fire".set_cell (bot_right, add, Vector2i.ZERO, 1)
 		$"../fire".set_cell (bot_left, add, Vector2i.ZERO, 1)
 
-func set_on_water(tile_pos) -> void:
-	$"../water".set_cell (Vector2i(tile_pos), 1, Vector2i.ZERO, 0)
+func set_on_water(tile_pos, add) -> void:
+	$"../water".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
 	print("water added")
 
 func set_on_tornado(tile_pos, add) -> void:
@@ -524,11 +524,21 @@ func set_on_tornado(tile_pos, add) -> void:
 	print("tornado added")
 
 func set_on_quake(tile_pos, add) -> void:
-	if get_is_plain(tile_pos) || get_is_mountain(tile_pos):
+	if get_is_plain(tile_pos) || (get_is_mountain(tile_pos) && !get_is_peak((tile_pos))):
+		print("QUAKE AVAILABLE", tile_pos)
 		$"../quake".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
 	else:
-		plainArray.shuffle()
-		$"../quake".set_cell (Vector2i(plainArray[0]), add, Vector2i.ZERO, 0)
+		if randi()%2==0:
+			plainArray.shuffle()
+			tile_pos = plainArray[0]
+		else:
+			mountainArray.shuffle()
+			while mountainArray[0] in peakArray:
+				mountainArray.shuffle()
+			tile_pos = mountainArray[0]
+		print("PL",plainArray[0],"TP",tile_pos)
+		print("PL2",plainArray[0][0],"PL3",plainArray[0][1],"PL4")
+		$"../quake".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
 	print("quake added")
 
 var tsunamiTile = Vector2i.ZERO
