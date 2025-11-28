@@ -1,7 +1,7 @@
 extends Timer
 
 func _ready():
-	$".".start()
+	pass
 
 func _add_funds(bonusFunds):
 	Globals.funds+=bonusFunds
@@ -24,6 +24,7 @@ func _on_timeout():
 			$"../../../../../disastersTimer/fireTimer/fireExtension".stop()
 			$"../../../../../disastersTimer/floodTimer".stop()
 			$"../../../../../disastersTimer/tornadoTimer".stop()
+			$"../../../../../teamTimer".stop()
 		else:
 			Globals.day=1
 			$TimeFundsContainer/timeLabel.text=str("Month ", Globals.month, ", Day ",Globals.day)
