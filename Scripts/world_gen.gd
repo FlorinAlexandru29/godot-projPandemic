@@ -374,7 +374,7 @@ func _physics_process(_delta):
 		if Globals.trustFactor >= 1000:
 			Globals.trustFactor = 1000
 		lastFireBonus = 1
-	if int($"../../disastersTimer/floodTimer".time_left) > 0 && int(lastFloodDisTimer) != int($"../../disastersTimer/floodTimer".time_left) && $"../../disastersTimer/floodTimer".paused==false && $"../water".get_cell_source_id(lastFloodLoc) == 1:
+	if int($"../../disastersTimer/floodTimer".time_left) > 0 && int(lastFloodDisTimer) != int($"../../disastersTimer/floodTimer".time_left) && $"../water".get_cell_source_id(lastFloodLoc) == 1:
 		lastFloodDisTimer = int($"../../disastersTimer/floodTimer".time_left)
 		Globals.trustFactor -= 1.2
 	elif lastFloodBonus == 0:
