@@ -15,6 +15,7 @@ func _ready() -> void:
 	research.visible = false
 	hud.visible = true
 	pause_menu.visible = false
+	$Tutorial.show()
 	
 	get_tree().paused = false
 
