@@ -382,6 +382,14 @@ func _physics_process(_delta):
 		if Globals.trustFactor >= 1000:
 			Globals.trustFactor = 1000
 		lastFloodBonus = 1
+	if (int($"../../disastersTimer".time_left) > 0) && (int(lastQuakeTimer) != int($"../../disastersTimer".time_left)) && ($"../water".get_cell_source_id(lastQuakeLoc) == 0 && get_is_city(lastQuakeLoc)):
+		lastQuakeTimer = int($"../../disastersTimer".time_left)
+		Globals.trustFactor -= 0.5
+	elif lastQuakeBonus == 0:
+		Globals.trustFactor += 10
+		if Globals.trustFactor >= 1000:
+			Globals.trustFactor = 1000
+		lastQuakeBonus = 1
 
 var lastFireBonus = 1
 var lastFloodBonus = 1
@@ -440,6 +448,9 @@ func deploy_team(tile_pos) -> void:
 			$"../water".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 			lastFloodBonus=0
 			lastFloodLoc=teamDeployLocation
+		if $"../quake".get_cell_source_id(teamDeployLocation) == 0 && get_is_city(teamDeployLocation):
+			lastQuakeBonus=0
+			lastQuakeLoc=teamDeployLocation
 		$"../quake".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		$"../tsunami".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		if $"../fire".get_cell_source_id(teamDeployLocation) == 1:
@@ -621,9 +632,23 @@ func set_on_fire(tile_pos, add) -> void:
 		$"../fire".set_cell (bot_left, add, Vector2i.ZERO, 1)
 
 func set_on_water(tile_pos, add) -> void:
-	$"../water".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
-	lastFloodLoc=tile_pos
-	print("water added")
+	if get_is_plain(tile_pos) || (get_is_mountain(tile_pos) && !get_is_peak(tile_pos)):
+		$"../water".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
+		lastFloodLoc=tile_pos
+		print("water added")
+	else:
+		if randi()%2==0:
+			plainArray.shuffle()
+			tile_pos = plainArray[0]
+			lastFloodLoc=Vector2i(tile_pos)
+		else:
+			mountainArray.shuffle()
+			while mountainArray[0] in peakArray:
+				mountainArray.shuffle()
+			tile_pos = mountainArray[0]
+			lastFloodLoc=Vector2i(tile_pos)
+		$"../water".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
+		lastFloodLoc=Vector2i(tile_pos)
 
 func set_on_tornado(tile_pos, add) -> void:
 	$"../tornado".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
@@ -633,18 +658,22 @@ func set_on_quake(tile_pos, add) -> void:
 	if get_is_plain(tile_pos) || (get_is_mountain(tile_pos) && !get_is_peak((tile_pos))):
 		print("QUAKE AVAILABLE", tile_pos)
 		$"../quake".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
+		lastQuakeLoc=Vector2i(tile_pos)
 	else:
 		if randi()%2==0:
 			plainArray.shuffle()
 			tile_pos = plainArray[0]
+			lastQuakeLoc=Vector2i(tile_pos)
 		else:
 			mountainArray.shuffle()
 			while mountainArray[0] in peakArray:
 				mountainArray.shuffle()
 			tile_pos = mountainArray[0]
+			lastQuakeLoc=Vector2i(tile_pos)
 		print("PL",plainArray[0],"TP",tile_pos)
 		print("PL2",plainArray[0][0],"PL3",plainArray[0][1],"PL4")
 		$"../quake".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
+		lastQuakeLoc=Vector2i(tile_pos)
 	print("quake added")
 
 var tsunamiTile = Vector2i.ZERO
