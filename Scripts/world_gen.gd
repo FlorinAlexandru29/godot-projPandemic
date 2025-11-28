@@ -640,15 +640,15 @@ func set_on_water(tile_pos, add) -> void:
 		if randi()%2==0:
 			plainArray.shuffle()
 			tile_pos = plainArray[0]
-			lastFloodLoc=Vector2i(tile_pos)
+			lastFloodLoc=Vector2i(tile_pos[0],tile_pos[1])
 		else:
 			mountainArray.shuffle()
 			while mountainArray[0] in peakArray:
 				mountainArray.shuffle()
 			tile_pos = mountainArray[0]
-			lastFloodLoc=Vector2i(tile_pos)
+			lastFloodLoc=Vector2i(tile_pos[0],tile_pos[1])
 		$"../water".set_cell (Vector2i(tile_pos[0],tile_pos[1]), add, Vector2i.ZERO, 0)
-		lastFloodLoc=Vector2i(tile_pos)
+		lastFloodLoc=Vector2i(tile_pos[0],tile_pos[1])
 
 func set_on_tornado(tile_pos, add) -> void:
 	$"../tornado".set_cell (Vector2i(tile_pos), add, Vector2i.ZERO, 0)
