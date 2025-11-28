@@ -371,6 +371,8 @@ func _physics_process(_delta):
 		print("B",int($"../../disastersTimer/fireTimer".time_left),int(lastFireDisTimer))
 	elif lastFireBonus == 0:
 		Globals.trustFactor += 10
+		if Globals.trustFactor >= 1000:
+			Globals.trustFactor = 1000
 		lastFireBonus = 1
 	if int($"../../disastersTimer/floodTimer".time_left) > 0 && int(lastFloodDisTimer) != int($"../../disastersTimer/floodTimer".time_left) && $"../../disastersTimer/floodTimer".paused==false && $"../water".get_cell_source_id(lastFloodLoc) == 1:
 		lastFloodDisTimer = int($"../../disastersTimer/floodTimer".time_left)
@@ -378,6 +380,8 @@ func _physics_process(_delta):
 		print("A",int($"../../disastersTimer/floodTimer".time_left),int(lastFloodDisTimer))
 	elif lastFloodBonus == 0:
 		Globals.trustFactor += 10
+		if Globals.trustFactor >= 1000:
+			Globals.trustFactor = 1000
 		lastFloodBonus = 1
 
 var lastFireBonus = 1
