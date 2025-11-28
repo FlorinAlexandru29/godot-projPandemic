@@ -371,17 +371,28 @@ var deployableTeam=1
 
 var teamDeployLocation = Vector2i.ZERO
 
+@onready var firstTeam = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/firstTeam"
+@onready var secondTeam = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/secondTeam"
+@onready var thirdTeam = $"../../UILayer/UI/GUI/HUD/LateralButtons/PausePanel/HBoxContainer/VBoxContainer/thirdTeam"
+
+
 func deploy_team(tile_pos) -> void:
 	print("DEPLO",deployableTeam)
 	if deployableTeam==1:
 		isTeamDeployed=1
 		print("DEPLOYED")
+		firstTeam.texture = ResourceLoader.load("res://Tiles/Teams/Firefighters2.png")
+		secondTeam.texture = ResourceLoader.load("res://Tiles/Teams/Search_and_Rescue2.png")
+		thirdTeam.texture = ResourceLoader.load("res://Tiles/Teams/Coordinators2.png")
 		teamDeployLocation = Vector2i(tile_pos[0],tile_pos[1])
 		$"../../teamTimer".paused = false
 		$"../../teamTimer".start(5)
 	elif deployableTeam==0:
 		isTeamDeployed=0
 		print("DONE DEPLOYING")
+		firstTeam.texture = ResourceLoader.load("res://Tiles/Teams/Firefighters.png")
+		secondTeam.texture = ResourceLoader.load("res://Tiles/Teams/Search_and_Rescue.png")
+		thirdTeam.texture = ResourceLoader.load("res://Tiles/Teams/Coordinators.png")
 		$"../../teamTimer".paused = true
 		$"../water".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
 		$"../quake".set_cell(teamDeployLocation,-1,Vector2i.ZERO,0)
