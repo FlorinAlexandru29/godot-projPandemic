@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv5t4uh28f2wb"]
+
+[ext_resource type="Script" uid="uid://d3ldso7qpkf0u" path="res://Scenes/UI/skill_select_button.gd" id="1_g7rso"]
+[ext_resource type="ButtonGroup" uid="uid://6j03w7a8514e" path="res://new_button_group.tres" id="1_y8a5m"]
+
+[node name="skillSelectButton" type="Button"]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+button_group = ExtResource("1_y8a5m")
+script = ExtResource("1_g7rso")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

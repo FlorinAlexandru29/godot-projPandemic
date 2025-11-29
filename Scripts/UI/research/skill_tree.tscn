@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bak1jrqepla27"]
+
+[ext_resource type="Script" uid="uid://c6rv0albg4nqr" path="res://Scenes/UI/skill_tree.gd" id="1_l34k1"]
+
+[node name="Skill_Tree" type="Control"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+script = ExtResource("1_l34k1")

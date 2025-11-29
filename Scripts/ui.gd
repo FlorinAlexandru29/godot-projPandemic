@@ -1,7 +1,6 @@
 extends Control
 
 @export var map_gen : worldGenerator = null
-
 @onready var pause_menu: Panel = $"GUI/Pause Menu"
 @onready var gui: Control = $GUI
 @onready var research: Control = $Research
@@ -16,8 +15,8 @@ func _ready() -> void:
 	hud.visible = true
 	pause_menu.visible = false
 	$Tutorial.show()
-	
 	get_tree().paused = false
+	
 
 func _on_resume_button_pressed() -> void:
 	hud.visible = true

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv5t4uh28f2wb"]
+
+[ext_resource type="Script" uid="uid://d3ldso7qpkf0u" path="res://Scenes/UI/skill_select_button.gd" id="1_g7rso"]
+
+[node name="skillSelectButton" type="Button"]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 8.0
+offset_bottom = 8.0
+toggle_mode = true
+script = ExtResource("1_g7rso")
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

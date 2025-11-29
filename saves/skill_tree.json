@@ -3,7 +3,7 @@
 		{
 			"title": "Signaling Lessons",
 			"description": "Cooldown decreased to 6 days",
-			"price": 20000,
+			"price": 2000,
 			"root": [],
 			"unlocked": false,
             "tier": 1
@@ -11,7 +11,7 @@
 		{
 			"title": "Versatility Training",
 			"description": "Can be used in place of Search and Rescue, cooldown increased by 50% if doing so",
-			"price": 50000,
+			"price": 5000,
 			"root": [0],
 			"unlocked": false,
             "tier": 2
@@ -19,7 +19,7 @@
 		{
 			"title": "Local Volunteers",
 			"description": "Cooldown decreased to 4 days in City and Village tiles",
-			"price": 60000,
+			"price": 6000,
 			"root": [1],
 			"unlocked": false,
             "tier": 3
@@ -27,7 +27,7 @@
 		{
 			"title": "Motorized Response",
 			"description": "Area of Effect increased by one hex",
-			"price": 100000,
+			"price": 10000,
 			"root": [1],
 			"unlocked": false,
             "tier": 3
@@ -35,7 +35,7 @@
 		{
 			"title": "Military Training",
 			"description": "Cooldown decreased to 3 days in City and Village tiles, 4 days otherwise",
-			"price": 90000,
+			"price": 9000,
 			"root": [2],
 			"unlocked": false,
             "tier": 4
@@ -43,7 +43,7 @@
 		{
 			"title": "The Force Grows",
 			"description": "One additional Firefighter team, total of 2",
-			"price": 110000,
+			"price": 11000,
 			"root": [3],
 			"unlocked": false,
             "tier": 4
@@ -51,34 +51,46 @@
 		{
 			"title": "Helicopter Fleet",
 			"description": "Area of Effect increased by one hex, for a total of two",
-			"price": 150000,
+			"price": 15000,
 			"root": [4,5],
 			"unlocked": false,
             "tier": 5
 		}
 	],
-
 	"search_rescue_tree": [
 		{
-			"title": "Navigation Basics",
-			"description": "Pathfinding efficiency increased",
-			"price": 800,
+			"title": "TEST",
+			"description": "TEST",
+			"price": 2000,
 			"root": [],
-			"unlocked": false
+			"unlocked": false,
+            "tier": 1
 		},
 		{
-			"title": "Advanced Tracking",
-			"description": "Locate missing persons faster",
-			"price": 4000,
+			"title": "TEST",
+			"description": "TEST",
+			"price": 5000,
 			"root": [0],
-			"unlocked": false
+			"unlocked": false,
+            "tier": 2
+		}
+	],
+	"medical_tree": [
+		{
+			"title": "TEST",
+			"description": "TEST",
+			"price": 2000,
+			"root": [],
+			"unlocked": false,
+            "tier": 1
 		},
 		{
-			"title": "Joint Operation Training",
-			"description": "Requires skill 1 and 2",
-			"price": 9000,
-			"root": [0, 1],
-			"unlocked": false
+			"title": "TEST",
+			"description": "TEST",
+			"price": 5000,
+			"root": [0],
+			"unlocked": false,
+            "tier": 2
 		}
 	]
 }

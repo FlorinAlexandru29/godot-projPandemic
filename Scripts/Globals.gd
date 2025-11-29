@@ -11,13 +11,8 @@ var trustFactor4=701.0 + randi()%200
 var trustFactor5=701.0 + randi()%200
 var trustFactor = (trustFactor1+trustFactor2+trustFactor3+trustFactor4+trustFactor5)/5
 
-func _ready() -> void:
-	print (skill_trees["fire_fighter_tree"])
-	for skill in skill_trees["fire_fighter_tree"]:
-		print (skill["title"])
-
 func load_skill_trees() -> Dictionary:
 	var file = FileAccess.open("res://saves/skill_tree.json", FileAccess.READ)
 	var content = file.get_as_text()
-	print (content)
+	#print (content)
 	return JSON.parse_string(content)

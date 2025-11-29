@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c7301kuxwvtxk" path="res://Scripts/UI/research/skill_button.gd" id="2_o71j7"]
 
 [node name="SkillButton" type="Button"]
+z_index = 2
 custom_minimum_size = Vector2(250, 60)
 anchors_preset = 5
 anchor_left = 0.5
@@ -48,8 +49,8 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -41.0
-offset_bottom = 39.0
+offset_top = -37.5
+offset_bottom = 37.5
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -82,7 +83,7 @@ vertical_alignment = 1
 
 [node name="Line2D" type="Line2D" parent="."]
 top_level = true
-z_index = -1
+z_index = 1
 default_color = Color(0.12955844, 0.12955847, 0.12955844, 1)
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

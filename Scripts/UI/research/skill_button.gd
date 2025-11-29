@@ -20,16 +20,13 @@ func _ready() -> void:
 	price_label.text= str(price) + "$"
 	title_label.text = title
 	description_label.text = description
+	#print ("skill with root", root)
 	for i in range(list.size()):
 		if i in root:
-			print (i,"radacina nod")
+			#print (i,"radacina nod")
 			line_2d.add_point(global_position + size/2)
 			line_2d.add_point(list[i].global_position + size/2)
-
-#var level: int = 0:
-	#set(value):
-		#level = value
-		#label.text = str(level) + "/3"
+			
 
 
 func _on_pressed() -> void:
@@ -42,11 +39,11 @@ func _on_pressed() -> void:
 			line_2d.default_color = Color(0.0, 1.0, 0.0, 1.0)
 			unlocked = true
 			Globals.funds -= price
-			print (unlocked)
-			print (get_index())
+			#print (unlocked)
+			#print (get_index())
 			for skill in list:
 				if get_index() in skill.root:
-					print (skill.root)
+					#print (skill.root)
 					var all_unlocked = true
 					for r in skill.root:
 						if not list[r].unlocked:
